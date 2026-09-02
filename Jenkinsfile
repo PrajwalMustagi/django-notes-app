@@ -58,7 +58,7 @@ pipeline {
             steps {
                 echo 'Deployment starts here'
 
-                sh 'docker compose up -d'
+                sh 'docker compose down && docker compose up -d'
             }
         }
     }
