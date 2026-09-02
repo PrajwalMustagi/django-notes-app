@@ -1,12 +1,4 @@
-@Library('Shared')_
-pipeline{
-    agent { label 'dev-server'}
-    
-    stages{
-        stage("Code clone"){
-            steps{
-                sh "whoami"
-            clone("https://githu@Library("shared") _
+@Library('Shared') _
 
 pipeline {
 
@@ -14,7 +6,7 @@ pipeline {
 
     stages {
 
-        stage('code clone') {
+        stage('Code clone') {
             steps {
                 script {
                     clone(
@@ -25,7 +17,7 @@ pipeline {
             }
         }
 
-        stage('hello') {
+        stage('Hello') {
             steps {
                 script {
                     hello()
@@ -33,16 +25,17 @@ pipeline {
             }
         }
 
-        stage('build') {
+        stage('Build') {
             steps {
-                echo 'build started'
+                echo 'Build started'
+
                 script {
                     build('notes-app', 'latest', 'mustagi')
                 }
             }
         }
 
-        stage('pushing to docker hub') {
+        stage('Push to Docker Hub') {
             steps {
                 echo 'The image is being pushed to Docker Hub'
 
@@ -53,6 +46,7 @@ pipeline {
                         usernameVariable: 'dockerhubuser'
                     )
                 ]) {
+
                     sh 'echo $dockerhubpass | docker login -u $dockerhubuser --password-stdin'
 
                     pushcode('notes-app', 'latest', 'mustagi')
@@ -60,31 +54,12 @@ pipeline {
             }
         }
 
-        stage('deployment') {
+        stage('Deploy') {
             steps {
-                echo 'The deployment starts here'
+                echo 'Deployment starts here'
+
                 sh 'docker compose up -d'
             }
         }
-    }
-}b.com/LondheShubham153/django-notes-app.git","main")
-            }
-        }
-        stage("Code Build"){
-            steps{
-            dockerbuild("notes-app","latest")
-            }
-        }
-        stage("Push to DockerHub"){
-            steps{
-                dockerpush("dockerHubCreds","notes-app","latest")
-            }
-        }
-        stage("Deploy"){
-            steps{
-                deploy()
-            }
-        }
-        
     }
 }
